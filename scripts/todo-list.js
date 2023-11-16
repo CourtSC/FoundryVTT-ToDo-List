@@ -95,9 +95,19 @@ class toDoListData {
 Hooks.on('renderPlayerList', (playerList, html) => {
 	// find the element which has our logged in user's id
 	const loggedInUserListItem = html.find(`[data-user-id="${game.userId}"]`);
+	console.log(loggedInUserListItem);
 
 	// insert a button at the end of this element
 	loggedInUserListItem.append(
 		"<button type='button' class='todo-list-icon-button'><i class='fas fa-tasks'></i></button>"
+	);
+});
+
+Hooks.on('renderItemSheetPF2e', (itemSheet, html) => {
+	// find the element which has the item sheet tabs
+	const itemSheetTabs = html.find('[class="sheet-tabs tabs"]');
+
+	itemSheetTabs.append(
+		"<a class='list-row' data-tab='imbuements'>Imbuements</a>"
 	);
 });
