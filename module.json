@@ -21,5 +21,18 @@
             "minimum": "4.0.6"
           }
         }]
-      }
+      },
+      "scripts": [
+        "scripts/todo-list.js"
+      ],
+      "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        }
+      ],
+      "styles": [
+        "styles/todo-list.css"
+      ]
 }
