@@ -1,0 +1,25 @@
+{
+    "name": "FoundryVTT-ToDo-List",
+    "title": "To Don't",
+    "description": "A simple module which adds a user specific to do list.",
+    "authors": [
+        {
+            "name": "DiceyCode"
+        }
+    ],
+    "version": "1",
+    "compatibility": {
+        "minimum": "11.315",
+        "verified": "11.315"
+    },
+    "relationships": {
+        "systems": [{
+          "id": "pf2e",
+          "type": "system",
+          "manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json",
+          "compatibility": {
+            "minimum": "4.0.6"
+          }
+        }]
+      }
+}
