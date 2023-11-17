@@ -97,17 +97,17 @@ Hooks.on('renderPlayerList', (playerList, html) => {
 	const loggedInUserListItem = html.find(`[data-user-id="${game.userId}"]`);
 	console.log(loggedInUserListItem);
 
+	// create localized tooltip
+	const tooltip = game.i18n.localize('TODO-LIST.button-title');
+
 	// insert a button at the end of this element
 	loggedInUserListItem.append(
-		"<button type='button' class='todo-list-icon-button'><i class='fas fa-tasks'></i></button>"
+		`<button type='button' class='todo-list-icon-button flex0' title='${tooltip}'><i class='fas fa-tasks'></i></button>`
 	);
-});
 
-Hooks.on('renderItemSheetPF2e', (itemSheet, html) => {
-	// find the element which has the item sheet tabs
-	const itemSheetTabs = html.find('[class="sheet-tabs tabs"]');
-
-	itemSheetTabs.append(
-		"<a class='list-row' data-tab='imbuements'>Imbuements</a>"
-	);
+	html.on('click', '.todo-list-icon-button', (event) => {
+		console.log(
+			`${toDoList.ID} | You hear a clicking sound and remember what you meant to do...`
+		);
+	});
 });
