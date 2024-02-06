@@ -7,7 +7,7 @@
  * @property {string} userID - The user who owns this todo.
  */
 
-class toDoList {
+class ToDoList {
 	static ID = 'FoundryVTT-ToDo-List';
 
 	static FLAGS = {
@@ -19,9 +19,9 @@ class toDoList {
 	};
 }
 
-class toDoListData {
+class ToDoListData {
 	static getToDosForUser(userID) {
-		return game.users.get(userID)?.getFlag(toDoList.ID, toDoList.FLAGS.TODOS);
+		return game.users.get(userID)?.getFlag(ToDoList.ID, ToDoList.FLAGS.TODOS);
 	}
 
 	static createToDo(userID, toDoData) {
@@ -41,7 +41,7 @@ class toDoListData {
 		//update the database with the new ToDos
 		return game.users
 			.get(userID)
-			?.setFlag(toDoList.ID, toDoList.FLAGS.TODOS, newToDos);
+			?.setFlag(ToDoList.ID, ToDoList.FLAGS.TODOS, newToDos);
 	}
 
 	static get allToDos() {
@@ -68,7 +68,7 @@ class toDoListData {
 		// update the database with the updated ToDo list
 		return game.users
 			.get(relevantToDo.userID)
-			?.setFlag(toDoList.ID, toDoList.FLAGS.TODOS, update);
+			?.setFlag(ToDoList.ID, ToDoList.FLAGS.TODOS, update);
 	}
 
 	static deleteToDo(toDoID) {
@@ -82,13 +82,37 @@ class toDoListData {
 		//update the database with the updated ToDo list
 		return game.users
 			.get(relevantToDo.userID)
-			?.setFlag(toDoList.ID, toDoList.FLAGS.TODOS, keyDeletion);
+			?.setFlag(ToDoList.ID, ToDoList.FLAGS.TODOS, keyDeletion);
 	}
 
 	static updateUserToDos(userID, updateData) {
 		return game.users
 			.get(userID)
-			?.setFlag(toDoList.ID, toDoList.FLAGS.TODOS, updateData);
+			?.setFlag(ToDoList.ID, ToDoList.FLAGS.TODOS, updateData);
+	}
+}
+
+class ToDoListConfig extends FormApplication {
+	static get defaultOptions() {
+		const defaults = super.defaultOptions;
+
+		const overrides = {
+			height: 'auto',
+			id: 'todo-list',
+			template: ToDoList.TEMPLATES.TODOLIST,
+			title: 'To Do List',
+			userId: game.userId,
+		};
+
+		const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
+
+		return mergedOptions;
+	}
+
+	getData(options) {
+		return {
+			todos: ToDoListData.getToDosForUser(options.userId),
+		};
 	}
 }
 
@@ -107,7 +131,7 @@ Hooks.on('renderPlayerList', (playerList, html) => {
 
 	html.on('click', '.todo-list-icon-button', (event) => {
 		console.log(
-			`${toDoList.ID} | You hear a clicking sound and remember what you meant to do...`
+			`${ToDoList.ID} | You hear a clicking sound and remember what you meant to do...`
 		);
 	});
 });
